@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String
+  password  String
+  role      Role       @default(MEMBER)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Relations
+  teams        TeamMember[]
+  assignedTasks Task[]       @relation("assignedTo")
+  createdTasks Task[]        @relation("createdBy")
+  activities   ActivityLog[]
+
+  @@map("users")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  members TeamMember[]
+  tasks   Task[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  userId    String
+  role      TeamRole @default(MEMBER)
+  joinedAt  DateTime @default(now())
+
+  // Relations
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@map("team_members")
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  priority    Priority   @default(MEDIUM)
+  dueDate     DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  completedAt DateTime?
+
+  // Foreign keys
+  teamId       String
+  createdById  String
+  assignedToId String?
+
+  // Relations
+  team       Team        @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  createdBy  User        @relation("createdBy", fields: [createdById], references: [id], onDelete: SetNull)
+  assignedTo User?       @relation("assignedTo", fields: [assignedToId], references: [id], onDelete: SetNull)
+  activities ActivityLog[]
+
+  @@index([teamId])
+  @@index([assignedToId])
+  @@index([status])
+  @@map("tasks")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  action    String   // e.g., "task_created", "task_assigned", "status_changed"
+  details   Json? // Store dynamic data like old/new values
+  createdAt DateTime @default(now())
+
+  // Foreign keys
+  userId   String
+  taskId   String?
+  teamId   String?
+
+  // Relations
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task Task? @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([taskId])
+  @@index([teamId])
+  @@map("activity_logs")
+}
+
+// Enums
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum TeamRole {
+  LEADER
+  MEMBER
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}

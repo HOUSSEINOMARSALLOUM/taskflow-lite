@@ -1,0 +1,71 @@
+name: Backend Tests
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "server/**"
+      - ".github/workflows/backend-tests.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "server/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: taskflow_lite_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Generate Prisma Client
+        working-directory: server
+        run: npm run prisma:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/taskflow_lite_test
+
+      - name: Run migrations
+        working-directory: server
+        run: npm run migrate:deploy
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/taskflow_lite_test
+
+      - name: Run tests
+        working-directory: server
+        run: npm test -- --coverage
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/taskflow_lite_test
+          JWT_SECRET: test-secret-key-for-testing
+          JWT_REFRESH_SECRET: test-refresh-secret
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./server/coverage/coverage-final.json
+          fail_ci_if_error: false
