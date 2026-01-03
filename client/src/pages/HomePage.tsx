@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../services/authContext';
-import apiClient from '../services/api';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../services/authContext";
+import apiClient from "../services/api";
 
 interface Team {
   id: string;
@@ -41,7 +41,7 @@ const HomePage: React.FC = () => {
         completedTasks: 0,
       });
     } catch (error) {
-      console.error('Failed to load dashboard stats:', error);
+      console.error("Failed to load dashboard stats:", error);
     }
   };
 
@@ -56,6 +56,7 @@ const HomePage: React.FC = () => {
     );
   }
 
+  // Unauthenticated Landing Page
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -110,13 +111,41 @@ const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900">
+                    Team Management
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    Create teams, add members, and manage permissions
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Task Tracking</h4>
+                  <p className="text-sm text-gray-600">
+                    Assign, prioritize, and track tasks with due dates
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Analytics</h4>
+                  <p className="text-sm text-gray-600">
+                    Visualize progress with charts and completion rates
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   // Authenticated Dashboard
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Welcome back, {user?.name}!</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Welcome back, {user?.name}!
+          </h1>
           <p className="text-gray-600">Here's your task overview</p>
         </div>
       </div>
@@ -127,17 +156,23 @@ const HomePage: React.FC = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 mb-8">
           <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
             <p className="text-gray-600 text-sm font-medium">Teams</p>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{stats.totalTeams}</p>
+            <p className="text-3xl font-bold text-gray-900 mt-2">
+              {stats.totalTeams}
+            </p>
             <p className="text-xs text-gray-500 mt-2">Active teams</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
             <p className="text-gray-600 text-sm font-medium">Tasks</p>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{stats.totalTasks}</p>
+            <p className="text-3xl font-bold text-gray-900 mt-2">
+              {stats.totalTasks}
+            </p>
             <p className="text-xs text-gray-500 mt-2">Total tasks</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
             <p className="text-gray-600 text-sm font-medium">Completed</p>
-            <p className="text-3xl font-bold text-green-600 mt-2">{stats.completedTasks}</p>
+            <p className="text-3xl font-bold text-green-600 mt-2">
+              {stats.completedTasks}
+            </p>
             <p className="text-xs text-gray-500 mt-2">Tasks done</p>
           </div>
         </div>
@@ -145,21 +180,31 @@ const HomePage: React.FC = () => {
         {/* Quick Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
-            <h3 className="text-lg font-semibold text-blue-900 mb-2">👥 Manage Teams</h3>
-            <p className="text-blue-700 text-sm mb-4">Create and organize your teams</p>
+            <h3 className="text-lg font-semibold text-blue-900 mb-2">
+              👥 Manage Teams
+            </h3>
+            <p className="text-blue-700 text-sm mb-4">
+              Create and organize your teams
+            </p>
             <button
-              onClick={() => navigate('/teams')}
+              onClick={() => navigate("/teams")}
               className="inline-block px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700"
             >
               Go to Teams
             </button>
           </div>
           <div className="bg-green-50 rounded-lg p-6 border border-green-200">
-            <h3 className="text-lg font-semibold text-green-900 mb-2">📊 View Analytics</h3>
-            <p className="text-green-700 text-sm mb-4">Track team productivity</p>
+            <h3 className="text-lg font-semibold text-green-900 mb-2">
+              📊 View Analytics
+            </h3>
+            <p className="text-green-700 text-sm mb-4">
+              Track team productivity
+            </p>
             {stats.totalTeams > 0 ? (
               <button
-                onClick={() => navigate(`/teams/${recentTeams[0]?.id}/analytics`)}
+                onClick={() =>
+                  navigate(`/teams/${recentTeams[0]?.id}/analytics`)
+                }
                 className="inline-block px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700"
               >
                 View Analytics
@@ -178,7 +223,9 @@ const HomePage: React.FC = () => {
         {/* Recent Teams */}
         {recentTeams.length > 0 && (
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Teams</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              Recent Teams
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {recentTeams.map((team) => (
                 <div
@@ -187,7 +234,9 @@ const HomePage: React.FC = () => {
                   className="p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
                 >
                   <h3 className="font-semibold text-gray-900">{team.name}</h3>
-                  <p className="text-sm text-gray-600 mt-2">{team._count?.tasks || 0} tasks</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {team._count?.tasks || 0} tasks
+                  </p>
                   <button className="text-blue-600 hover:text-blue-700 text-sm font-medium mt-2">
                     View Team →
                   </button>
@@ -197,32 +246,6 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </div>
-              View all teams →
-            </a>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-2">Active Tasks</h2>
-            <p className="text-3xl font-bold text-green-600">0</p>
-            <p className="text-sm text-gray-600 mt-2">Assigned to you</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-2">Completed</h2>
-            <p className="text-3xl font-bold text-purple-600">0</p>
-            <p className="text-sm text-gray-600 mt-2">This month</p>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <a
-            href="/teams/new"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-          >
-            Create New Team
-          </a>
-        </div>
-      </main>
     </div>
   );
 };
