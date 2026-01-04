@@ -15,6 +15,7 @@ import TeamsPage from "./pages/TeamsPage";
 import TeamDetailPage from "./pages/TeamDetailPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import ActivityLogPage from "./pages/ActivityLogPage";
+import LandingPage from "./pages/LandingPage";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -84,11 +85,12 @@ const Navigation: React.FC = () => {
 };
 
 function AppContent() {
+  const { isAuthenticated } = useAuth();
   return (
     <>
       <Navigation />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={isAuthenticated ? <HomePage /> : <LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route

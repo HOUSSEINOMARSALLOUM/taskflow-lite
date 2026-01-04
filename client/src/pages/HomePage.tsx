@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../services/authContext";
 import apiClient from "../services/api";
@@ -37,7 +38,7 @@ const HomePage: React.FC = () => {
       setRecentTeams(teams.slice(0, 3));
       setStats({
         totalTeams: teams.length,
-        totalTasks: teams.reduce((sum, t) => sum + (t._count?.tasks || 0), 0),
+        totalTasks: teams.reduce((sum: number, t: Team) => sum + (t._count?.tasks || 0), 0),
         completedTasks: 0,
       });
     } catch (error) {
@@ -56,86 +57,7 @@ const HomePage: React.FC = () => {
     );
   }
 
-  // Unauthenticated Landing Page
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-        <header className="bg-white shadow">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <h1 className="text-3xl font-bold text-gray-900">TaskFlow Lite</h1>
-            <p className="text-gray-600">
-              Role-Based Team Task & Progress Management
-            </p>
-          </div>
-        </header>
 
-        <main className="max-w-7xl mx-auto px-4 py-12">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="text-2xl font-semibold mb-4">Welcome!</h2>
-              <p className="text-gray-700 mb-6">
-                TaskFlow Lite is a lightweight, role-based task management
-                platform for small teams, student groups, NGOs, and startups.
-              </p>
-              <ul className="space-y-3 text-gray-700 mb-8">
-                <li>✓ Simple team and task management</li>
-                <li>✓ Real-time status tracking</li>
-                <li>✓ Activity logs and history</li>
-                <li>✓ Analytics and insights</li>
-              </ul>
-              <a
-                href="/login"
-                className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-              >
-                Sign In
-              </a>
-              <span className="mx-2">or</span>
-              <a
-                href="/register"
-                className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
-              >
-                Sign Up
-              </a>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-8">
-              <h3 className="text-xl font-semibold mb-4">Key Features</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Authentication
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Secure JWT-based authentication with role-based access
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Team Management
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Create teams, add members, and manage permissions
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Task Tracking</h4>
-                  <p className="text-sm text-gray-600">
-                    Assign, prioritize, and track tasks with due dates
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Analytics</h4>
-                  <p className="text-sm text-gray-600">
-                    Visualize progress with charts and completion rates
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
 
   // Authenticated Dashboard
   return (
@@ -154,27 +76,42 @@ const HomePage: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 mb-8">
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow"
+          >
             <p className="text-gray-600 text-sm font-medium">Teams</p>
             <p className="text-3xl font-bold text-gray-900 mt-2">
               {stats.totalTeams}
             </p>
             <p className="text-xs text-gray-500 mt-2">Active teams</p>
-          </div>
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow"
+          >
             <p className="text-gray-600 text-sm font-medium">Tasks</p>
             <p className="text-3xl font-bold text-gray-900 mt-2">
               {stats.totalTasks}
             </p>
             <p className="text-xs text-gray-500 mt-2">Total tasks</p>
-          </div>
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow"
+          >
             <p className="text-gray-600 text-sm font-medium">Completed</p>
             <p className="text-3xl font-bold text-green-600 mt-2">
               {stats.completedTasks}
             </p>
             <p className="text-xs text-gray-500 mt-2">Tasks done</p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Quick Links */}

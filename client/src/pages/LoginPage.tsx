@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../services/authContext";
 
@@ -17,7 +18,7 @@ export const LoginPage: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err: any) {
       setError(err.response?.data?.error || "Login failed. Please try again.");
     } finally {
@@ -27,7 +28,12 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md"
+      >
         <h1 className="text-3xl font-bold text-center mb-2">TaskFlow Lite</h1>
         <p className="text-gray-600 text-center mb-8">
           Sign in to your account
@@ -94,7 +100,7 @@ export const LoginPage: React.FC = () => {
             Sign up
           </a>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 };
