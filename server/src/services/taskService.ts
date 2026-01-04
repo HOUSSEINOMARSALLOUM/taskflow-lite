@@ -1,4 +1,4 @@
-import { PrismaClient, TaskStatus, Priority } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { ApiError } from "../utils/errors";
 import { CreateTaskRequest, UpdateTaskRequest } from "../utils/types";
 import { PaginationParams, createPaginatedResponse } from "../utils/pagination";
@@ -49,12 +49,12 @@ export class TaskService {
       data: {
         title: data.title,
         description: data.description,
-        priority: data.priority || Priority.MEDIUM,
+        priority: data.priority || "MEDIUM",
         dueDate: data.dueDate ? new Date(data.dueDate) : null,
         teamId,
         createdById: userId,
         assignedToId: data.assignedToId || null,
-        status: TaskStatus.TODO,
+        status: "TODO",
       },
       include: {
         createdBy: {
@@ -73,10 +73,10 @@ export class TaskService {
         userId,
         taskId: task.id,
         teamId,
-        details: {
+        details: JSON.stringify({
           title: task.title,
           priority: task.priority,
-        },
+        }),
       },
     });
 
@@ -87,9 +87,9 @@ export class TaskService {
     teamId: string,
     userId: string,
     filters: {
-      status?: TaskStatus;
+      status?: string;
       assignedToId?: string;
-      priority?: Priority;
+      priority?: string;
     },
     pagination: PaginationParams
   ) {
@@ -229,7 +229,7 @@ export class TaskService {
         dueDate: data.dueDate ? new Date(data.dueDate) : task.dueDate,
         status: newStatus,
         assignedToId: data.assignedToId ?? task.assignedToId,
-        completedAt: newStatus === TaskStatus.DONE ? new Date() : null,
+        completedAt: newStatus === "DONE" ? new Date() : null,
       },
       include: {
         createdBy: {
@@ -249,10 +249,10 @@ export class TaskService {
           userId,
           taskId,
           teamId: task.teamId,
-          details: {
+          details: JSON.stringify({
             oldStatus,
             newStatus,
-          },
+          }),
         },
       });
     }

@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { ApiError } from "../utils/errors";
 import { hashPassword, comparePasswords } from "../utils/password";
 import { RegisterRequest, LoginRequest } from "../utils/types";
@@ -29,7 +29,7 @@ export class AuthService {
         email: data.email,
         name: data.name,
         password: hashedPassword,
-        role: Role.MEMBER,
+        role: "MEMBER",
       },
       select: {
         id: true,

@@ -408,7 +408,10 @@ async function main() {
         create: {
           id: "act1_demo",
           action: "task_created",
-          details: { title: "Design user dashboard", priority: "HIGH" },
+          details: JSON.stringify({
+            title: "Design user dashboard",
+            priority: "HIGH",
+          }),
           userId: "user1_demo",
           taskId: "task1_demo",
           teamId: "team1_demo",
@@ -420,7 +423,10 @@ async function main() {
         create: {
           id: "act2_demo",
           action: "task_created",
-          details: { title: "Implement authentication", priority: "URGENT" },
+          details: JSON.stringify({
+            title: "Implement authentication",
+            priority: "URGENT",
+          }),
           userId: "user1_demo",
           taskId: "task2_demo",
           teamId: "team1_demo",
@@ -433,7 +439,10 @@ async function main() {
         create: {
           id: "act4_demo",
           action: "status_changed",
-          details: { oldStatus: "TODO", newStatus: "IN_PROGRESS" },
+          details: JSON.stringify({
+            oldStatus: "TODO",
+            newStatus: "IN_PROGRESS",
+          }),
           userId: "user2_demo",
           taskId: "task2_demo",
           teamId: "team1_demo",
@@ -445,7 +454,10 @@ async function main() {
         create: {
           id: "act5_demo",
           action: "status_changed",
-          details: { oldStatus: "IN_PROGRESS", newStatus: "DONE" },
+          details: JSON.stringify({
+            oldStatus: "IN_PROGRESS",
+            newStatus: "DONE",
+          }),
           userId: "user2_demo",
           taskId: "task2_demo",
           teamId: "team1_demo",

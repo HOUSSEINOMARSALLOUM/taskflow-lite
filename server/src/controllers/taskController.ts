@@ -3,7 +3,6 @@ import taskService from "../services/taskService";
 import { AuthRequest } from "../utils/jwt";
 import { asyncHandler } from "../middleware/errorHandler";
 import { parsePagination } from "../utils/pagination";
-import { TaskStatus, Priority } from "@prisma/client";
 
 export const createTask = asyncHandler(
   async (req: AuthRequest, res: Response) => {
@@ -33,9 +32,9 @@ export const getTeamTasks = asyncHandler(
     const pagination = parsePagination(req.query);
 
     const filters = {
-      status: req.query.status as TaskStatus | undefined,
+      status: req.query.status as string | undefined,
       assignedToId: req.query.assignedToId as string | undefined,
-      priority: req.query.priority as Priority | undefined,
+      priority: req.query.priority as string | undefined,
     };
 
     const result = await taskService.getTeamTasks(
