@@ -44,10 +44,20 @@ const LandingPage: React.FC = () => {
                     <div className="flex justify-between h-16 items-center">
                         <div className="flex items-center">
                             <Link to="/" className="flex items-center gap-2">
-                                <div className="bg-blue-600 p-1.5 rounded-lg">
-                                    <Layout className="h-6 w-6 text-white" />
+                                <div className="text-blue-600">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="4" width="32" height="32" rx="8" className="fill-blue-600" />
+                                        <path d="M14 20L18 24L26 16" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                        <rect x="4" y="4" width="32" height="32" rx="8" stroke="url(#paint0_linear)" strokeWidth="0" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                                                <stop stopColor="#60A5FA" />
+                                                <stop offset="1" stopColor="#2563EB" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
                                 </div>
-                                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                                <span className="text-2xl font-extrabold tracking-tighter text-slate-900">
                                     TaskFlow
                                 </span>
                             </Link>
@@ -97,9 +107,9 @@ const LandingPage: React.FC = () => {
                             </motion.div>
                             <motion.h1
                                 variants={itemVariants}
-                                className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight mb-8"
+                                className="text-6xl md:text-8xl font-extrabold tracking-tight text-slate-900 leading-tight mb-8"
                             >
-                                Manage tasks with
+                                Master your tasks with
                                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">
                                     clarity & speed
                                 </span>
@@ -140,9 +150,9 @@ const LandingPage: React.FC = () => {
                             <div className="rounded-2xl bg-white shadow-2xl border border-slate-200 p-2 sm:p-4 overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-transparent via-white/5 to-white/30 pointer-events-none"></div>
                                 <img
-                                    src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop"
-                                    alt="App Dashboard"
-                                    className="rounded-xl w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity duration-700"
+                                    src="/hero-dashboard.png"
+                                    alt="TaskFlow Dashboard Interface"
+                                    className="rounded-xl w-full h-auto object-cover transform hover:scale-[1.02] transition-transform duration-700"
                                 />
                             </div>
                         </motion.div>
@@ -244,7 +254,7 @@ const LandingPage: React.FC = () => {
                     </div>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 };
 
