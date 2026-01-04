@@ -176,6 +176,43 @@ const LandingPage: React.FC = () => {
                                 <FeatureCard key={index} {...feature} index={index} />
                             ))}
                         </div>
+
+                        <div className="mt-20">
+                            <div className="bg-slate-900 rounded-3xl p-8 md:p-12 overflow-hidden relative">
+                                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
+                                <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                                    <div>
+                                        <h3 className="text-3xl font-bold text-white mb-6">
+                                            Seamless Collaboration
+                                        </h3>
+                                        <p className="text-slate-300 text-lg mb-8 leading-relaxed">
+                                            Work together in real-time. TaskFlow Lite connects your team with shared boards, instant updates, and transparent progress tracking. No more silos.
+                                        </p>
+                                        <ul className="space-y-4 text-slate-300">
+                                            <li className="flex items-center gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                                    <CheckCircle className="w-4 h-4 text-blue-400" />
+                                                </div>
+                                                Real-time status updates
+                                            </li>
+                                            <li className="flex items-center gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center">
+                                                    <CheckCircle className="w-4 h-4 text-purple-400" />
+                                                </div>
+                                                Team-wide visibility
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="relative">
+                                        <img
+                                            src="/features-collaboration.png"
+                                            alt="Team Collaboration"
+                                            className="rounded-xl shadow-2xl border border-white/10 transform -rotate-2 hover:rotate-0 transition-transform duration-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -203,23 +240,13 @@ const LandingPage: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 text-white shadow-xl">
-                                <h3 className="text-2xl font-bold mb-4">Why TaskFlow Lite?</h3>
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="text-green-300" /> <span>Free for small teams</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="text-green-300" /> <span>Open source</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <CheckCircle className="text-green-300" /> <span>No complex onboarding</span>
-                                    </div>
-                                    <div className="p-4 bg-white/10 rounded-lg mt-6 backdrop-blur-sm">
-                                        <p className="italic">"The simplest way to manage our student organization projects. It just works."</p>
-                                        <div className="mt-2 text-sm opacity-80">- Alex M., Student Lead</div>
-                                    </div>
-                                </div>
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-blue-100 rounded-full filter blur-3xl opacity-30"></div>
+                                <img
+                                    src="/how-it-works.png"
+                                    alt="Workflow Process"
+                                    className="relative z-10 w-full h-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+                                />
                             </div>
                         </div>
                     </div>
@@ -243,14 +270,67 @@ const LandingPage: React.FC = () => {
                 </section>
             </main>
 
-            <footer className="bg-slate-50 py-12 border-t border-slate-200">
-                <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
-                    <div className="flex items-center gap-2 mb-4 md:mb-0">
-                        <Layout className="h-5 w-5 text-blue-600" />
-                        <span className="font-semibold text-slate-700">TaskFlow Lite</span>
+            <footer className="bg-slate-900 border-t border-slate-800 pt-16 pb-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                        <div className="col-span-2 md:col-span-1">
+                            <div className="flex items-center gap-2 mb-4">
+                                <div className="text-blue-500">
+                                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="4" width="32" height="32" rx="8" className="fill-blue-600" />
+                                        <path d="M14 20L18 24L26 16" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </div>
+                                <span className="text-xl font-bold text-white">TaskFlow</span>
+                            </div>
+                            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                                The open-source project management tool designed for agile teams and student organizations.
+                            </p>
+                            <div className="flex gap-4">
+                                {/* Social placeholders */}
+                                <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">𝕏</div>
+                                <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">in</div>
+                                <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">gh</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-white mb-6">Product</h4>
+                            <ul className="space-y-3 text-sm text-slate-400">
+                                <li><a href="#features" className="hover:text-blue-400 transition-colors">Features</a></li>
+                                <li><a href="#how-it-works" className="hover:text-blue-400 transition-colors">How it Works</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Pricing</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Roadmap</a></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-white mb-6">Resources</h4>
+                            <ul className="space-y-3 text-sm text-slate-400">
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Documentation</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Community</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Blog</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Help Center</a></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-white mb-6">Company</h4>
+                            <ul className="space-y-3 text-sm text-slate-400">
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">About</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Careers</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Privacy</a></li>
+                                <li><a href="#" className="hover:text-blue-400 transition-colors">Terms</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        &copy; {new Date().getFullYear()} TaskFlow Lite. All rights reserved.
+
+                    <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                        <div>&copy; {new Date().getFullYear()} TaskFlow Lite. Open Source.</div>
+                        <div className="flex gap-6 mt-4 md:mt-0">
+                            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+                        </div>
                     </div>
                 </div>
             </footer>
