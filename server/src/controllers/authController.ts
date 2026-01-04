@@ -72,7 +72,7 @@ export const getMe = asyncHandler(async (req: AuthRequest, res: Response) => {
   res.json({ user });
 });
 
-export const logout = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const logout = asyncHandler(async (_req: AuthRequest, res: Response) => {
   // In a real app, you'd invalidate the token server-side (add to blacklist, etc.)
   res.json({ message: "Logged out successfully" });
 });

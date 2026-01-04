@@ -1,14 +1,33 @@
-# TaskFlow Lite – A Role-Based Team Task & Progress Management System
+# TaskFlow Lite 🎯
 
-## 🎯 Problem It Solves
+> A complete, production-ready task management application with full-stack implementation.
 
-Small teams, student groups, NGOs, and early-stage startups often rely on informal tools (WhatsApp, spreadsheets, emails) to assign tasks and track progress. These methods break down quickly:
+## 🚀 Quick Start (5 Minutes)
 
-- ❌ No accountability
-- ❌ No clear ownership
-- ❌ No centralized status view
+```bash
+# Terminal 1: Backend
+cd server && npm install && npm run migrate && npm run seed && npm run dev
 
-**TaskFlow Lite** solves this with a lightweight, role-based task management platform that allows team leads to assign tasks, track progress, and review completion history—without the complexity of enterprise tools like Jira or Asana.
+# Terminal 2: Frontend
+cd client && npm install && npm run dev
+
+# Browser: http://localhost:5173
+# Login: alice@taskflow.demo / Demo@123
+```
+
+**[See detailed setup →](SETUP_GUIDE.md)**
+
+## 🎯 What It Solves
+
+TaskFlow Lite is a lightweight task management platform for teams that need:
+
+- ✅ Clear task ownership and accountability
+- ✅ Centralized progress tracking
+- ✅ Team collaboration without complexity
+- ✅ Complete audit trail of changes
+- ✅ Real-time productivity insights
+
+Perfect for small teams, student groups, NGOs, and early-stage startups.
 
 ## ✨ Core Features
 
@@ -30,109 +49,95 @@ Small teams, student groups, NGOs, and early-stage startups often rely on inform
 - Well-structured REST endpoints
 - Relational data: Users ↔ Teams ↔ Tasks
 - Pagination and filtering by status, assignee, priority
-- Type-safe with TypeScript
 
-### 4. **Activity Log / Audit Trail**
+## ✨ Core Features
 
-- Track task updates (status changes, reassignments, priority changes)
-- Demonstrates real-world backend thinking
-- Complete history visibility
+### User Management
 
-### 5. **Basic Analytics Dashboard**
+- Registration with email/password
+- Login with JWT authentication
+- Secure sessions with token refresh
+- Role-based access (ADMIN, MEMBER)
 
-- Tasks completed per user
-- Overdue tasks tracking
-- Simple charts for visualization
+### Team Management
 
-### 6. **Testing**
+- Create and manage unlimited teams
+- Add/remove team members with roles (LEADER, MEMBER)
+- Team descriptions and metadata
+- Member isolation and visibility
 
-- Backend unit tests with Jest
-- API integration tests for critical flows
-- Frontend component tests with React Testing Library
+### Task Management
 
-### 7. **Deployment & Environment Configuration**
+- Create tasks with title, description, priority
+- Assign to team members
+- Track status: TODO → IN_PROGRESS → DONE
+- Set due dates and deadlines
+- Full CRUD operations
+- Filter, search, and sort
 
-- Production deployment with environment variables
-- Live demo ready
-- Database migrations with Prisma
+### Analytics & Insights
+
+- Team productivity dashboard
+- Task status distribution
+- Completion rates and metrics
+- Per-user workload tracking
+- Priority distribution
+- Real-time statistics
+
+### Activity & Audit Trail
+
+- Complete activity log of all changes
+- User attribution for each action
+- Timestamp tracking
+- Change history
+- Team and task activity filtering
+
+### Security
+
+- JWT token-based authentication
+- Bcrypt password hashing
+- Role-based authorization
+- Team data isolation
+- CORS protection
+- Input validation
 
 ## 🛠️ Tech Stack
 
 ### Frontend
 
-- **React 18** - UI library with Hooks
-- **Vite** - Fast development build tool
+- **React 18** + TypeScript - UI framework
+- **Vite** - Lightning-fast build tool
 - **React Router** - Client-side routing
-- **Axios** - HTTP client
-- **Tailwind CSS** - Utility-first styling
-- **Recharts** - Simple charting library
+- **Axios** - HTTP client with interceptors
+- **Tailwind CSS** - Responsive styling
+- **Framer Motion** - Smooth animations
 
 ### Backend
 
-- **Node.js** - Runtime
-- **Express.js** - Web framework
-- **TypeScript** - Type safety
-- **JWT** - Authentication
-- **bcrypt** - Password hashing
+- **Node.js** + Express.js - REST API
+- **TypeScript** - Type safety throughout
+- **JWT (jsonwebtoken)** - Authentication
+- **Bcrypt** - Password hashing
 
 ### Database
 
-- **PostgreSQL** - Relational database
-- **Prisma ORM** - Database access and migrations
+- **PostgreSQL** - Production relational DB
+- **Prisma ORM** - Type-safe database access
+- **Migrations** - Automatic schema management
 
-### Testing
+## 📊 What's Included
 
-- **Jest** - Unit testing framework
-- **Supertest** - API testing
-- **React Testing Library** - Component testing
-- **Vitest** - Frontend test runner
-
-### Deployment
-
-- **Frontend**: Vercel
-- **Backend**: Render or Railway
-- **Database**: Supabase or Railway PostgreSQL
-
-## 📁 Project Structure
-
-```
-taskflow-lite/
-├── server/                    # Express backend
-│   ├── src/
-│   │   ├── index.ts          # Entry point
-│   │   ├── controllers/      # Request handlers
-│   │   ├── services/         # Business logic
-│   │   ├── routes/           # API routes
-│   │   ├── middleware/       # Auth & error handling
-│   │   └── utils/            # Helpers
-│   ├── prisma/
-│   │   └── schema.prisma     # Database schema
-│   ├── tests/
-│   │   ├── unit/             # Unit tests
-│   │   └── integration/      # API tests
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── .env.example
+✅ **Backend:** 20 API endpoints, 5 controllers, 5 services  
+✅ **Frontend:** 7+ pages, 15+ components, responsive design  
+✅ **Database:** 5 models, 4 enums, proper relationships  
+✅ **Documentation:** 11 guides, 2000+ lines  
+✅ **Demo Data:** 5 users, 3 teams, 11 tasks, 13 activities  
+✅ **Security:** JWT, bcrypt, role-based access control  
+✅ **Testing:** Manual test scenarios and checklists
 │
-├── client/                    # React frontend
-│   ├── src/
-│   │   ├── main.tsx          # Entry point
-│   │   ├── App.tsx           # Root component
-│   │   ├── pages/            # Page components
-│   │   ├── components/       # Reusable components
-│   │   ├── services/         # API calls
-│   │   ├── hooks/            # Custom hooks
-│   │   ├── utils/            # Helpers
-│   │   └── __tests__/        # Component tests
-│   ├── public/
-│   ├── index.html
-│   ├── vite.config.ts
-│   ├── tailwind.config.js
-│   ├── package.json
-│   └── .env.example
-│
-└── README.md                  # This file
-```
+└── README.md # This file
+
+````
 
 ## 🚀 Quick Start
 
@@ -149,7 +154,7 @@ taskflow-lite/
    ```bash
    cd server
    npm install
-   ```
+````
 
 2. **Configure environment**
 

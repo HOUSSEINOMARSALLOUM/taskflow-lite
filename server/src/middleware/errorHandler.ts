@@ -3,16 +3,16 @@ import { ApiError, handleError } from "../utils/errors";
 
 export const errorHandler = (
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   const { statusCode, body } = handleError(err);
   res.status(statusCode).json(body);
 };
 
-export const notFound = (req: Request, res: Response, next: NextFunction) => {
-  const error = new ApiError(404, `Not found - ${req.originalUrl}`);
+export const notFound = (_req: Request, _res: Response, next: NextFunction) => {
+  const error = new ApiError(404, `Not found - ${_req.originalUrl}`);
   next(error);
 };
 

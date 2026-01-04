@@ -14,19 +14,17 @@ export const generateAccessToken = (
   email: string,
   role: string
 ): string => {
-  return jwt.sign(
-    { id: userId, email, role },
-    process.env.JWT_SECRET || "secret",
-    { expiresIn: process.env.JWT_EXPIRE_IN || "24h" }
-  );
+  const secret = process.env.JWT_SECRET || "secret";
+  return jwt.sign({ id: userId, email, role }, secret, {
+    expiresIn: process.env.JWT_EXPIRE_IN || "24h",
+  } as any);
 };
 
 export const generateRefreshToken = (userId: string): string => {
-  return jwt.sign(
-    { id: userId },
-    process.env.JWT_REFRESH_SECRET || "refresh-secret",
-    { expiresIn: process.env.JWT_REFRESH_EXPIRE_IN || "7d" }
-  );
+  const secret = process.env.JWT_REFRESH_SECRET || "refresh-secret";
+  return jwt.sign({ id: userId }, secret, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRE_IN || "7d",
+  } as any);
 };
 
 export const verifyAccessToken = (token: string): JwtPayload | null => {
